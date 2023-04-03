@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>201904048 박지웅 웹프로그래밍 과제 TodoApp</title>
+    <style>
+      body {
+        display: flex;
+        background-color: dimgray;
+        align-items: center;
+        justify-content: center;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: solid aquamarine;
+        background-color: darkgray;
+        padding: 20px;
+        border-radius: 8px;
+        height: auto;
+        width: 20vw;
+      }
+      name {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        font-size: 30px;
+      }
+      .input-group {
+        width: 100%;
+      }
+      .input-main {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-top: 10px;
+      }
+      .TextBox {
+        margin-right: 10px;
+        border-radius: 8px;
+        border: 1px solid aquamarine;
+        height: 30px;
+        width: 250px;
+        font-size: 20px;
+        outline: none;
+      }
+      .AddBtn {
+        height: 32px;
+        background-color: aquamarine;
+        border: 1px solid aquamarine;
+        border-radius: 8px;
+      }
+      .input-detail {
+        display: flex;
+        margin-top: 15px;
+      }
+      .detailBox {
+        width: 295px;
+        height: 70px;
+        border: 1px solid aquamarine;
+        border-radius: 8px;
+        font-weight: 400;
+        outline: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <name>My ToDo App</name>
+      <form class="input-group">
+        <div class="input-main">
+          <input
+            class="TextBox"
+            type="text"
+            name="text"
+            id="inputTodo"
+            placeholder="할일을 입력하시오"
+          />
+          <button type="button" class="AddBtn" id="addbtn" onclick="addTodo()">
+            Add
+          </button>
+        </div>
+        <div class="input-detail">
+          <input
+            class="detailBox"
+            type="text"
+            name="detail"
+            placeholder="자세한 사항을 입력하시오"
+          />
+        </div>
+      </form>
+      <ul id="result"></ul>
+    </main>
+    <script>
+      const btn = document.getElementById("addbtn");
+      let inputTodo = document.getElementById("inputTodo");
+      let result = document.getElementById("result");
+
+      function addTodo() {
+        const value = inputTodo.value;
+        todolist.push(value);
+        renderTodo();
+      }
+      function delTodo(index) {
+        const newTodoList = [];
+        for (let i = 0; i < todolist.length; i++) {
+          if (i !== index) newTodoList.push(todolist[i]);
+        }
+        todolist = newTodoList;
+        renderTodo();
+      }
+    </script>
+    <script>
+      let todolist = [];
+      function renderTodo() {
+        result.innerHTML = "";
+        todolist.map((todo, index) => {
+          const Li = document.createElement("li");
+          const delBtn = document.createElement("button");
+          delBtn.innerText = "X";
+          Li.innerHTML = todo;
+          delBtn.onclick = () => {
+            delTodo(index);
+          };
+          Li.appendChild(delBtn);
+          result.appendChild(Li);
+        });
+      }
+    </script>
+  </body>
+</html>
